@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0" />
+		<title>Stickies! in Augmented.js</title>
+		<!-- requirejs pulls in all necessary js for this component -->
+		<script data-main="scripts/app/decoratorRequire.js" src="scripts/lib/require.js"></script>
+	</head>
+	<body>
+		<article>
+            <!-- header for title and links -->
+            <header id="header">
+                <div id="logo"></div>
+                <h1>Stickies!</h1>
+                <h2>Augmented decorator pattern example</h2>
+            </header>
+			<section id="main">
+                <h3>Add a note!</h3>
+                <!-- DecoratorView mount point -->
+                <!-- Defined 'controller' is 'sticky' mapped to data-sticky attributes -->
+                <formset id="sticky">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" data-sticky="title" value="" autocomplete="off"/>
+                    <label for="note">Note</label>
+                    <textarea id="note" name="note" data-sticky="note" autocomplete="off"></textarea>
+                    <!-- this might not be supported in all browsers -->
+                    <div id="colors">
+                        <label for="color">Color</label>
+                        <input type="color" id="color" name="color" data-sticky="color" value="" autocomplete="off" list="colors"/>
+                        <datalist id="colors">
+                        	<option>#ffebee</option>
+                        	<option>#e8f5e9</option>
+                        	<option>#e3f2fd</option>
+                            <option>#fffde7</option>
+                            <option>#f3e5f5</option>
+                        </datalist>
+                    </div>
+                    <div id="controlPanel">
+                        <!-- button click event bound via data-click attribute -->
+                        <button id="add" data-sticky="add" data-click="addNote">Add Note</button>
+                    </div>
+                    <div data-sticky="notes" id="notes">
+                        <!-- sticky notes view -->
+                    </div>
+                </formset>
+            </section>
+            <footer>
+                <p>Stickies! Augmented.js Example - see <a href="#">GitHub</a></p>
+            </footer>
+		</article>
+	</body>
+</html>
