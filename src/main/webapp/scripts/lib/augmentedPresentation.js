@@ -2043,6 +2043,45 @@
         },
         bindingAttribute: function() {
             return "data-" + this.name;
+        },
+        injectTemplate: function(template, mount) {
+            var domInject = false, m = mount;
+            if (!mount) {
+                mount = this.el;
+            }
+            if (Augmented.isString(mount)) {
+                mount = document.querySelector(mount);
+            }
+            if (Augmented.isString(template)) {
+                // html
+                domInject = false;
+
+            } else if (template.nodeType > 0) {
+                // DOM
+                domInject = true;
+            }
+
+            if (domInject) {
+                mount.appendChild(template);
+            } else {
+                var currentHTML = mount.innerHTML;
+                mount.innerHTML = currentHTML + template;
+            }
+            this.delegateEvents();
+        },
+        removeTemplate: function(mount) {
+            while (mount.firstChild) {
+                mount.removeChild(mount.firstChild);
+            }
+            var p = mount.parentNode;
+            p.removeChild(mount);
+            this.delegateEvents();
+        },
+        boundElement: function(id) {
+            if (this.el && id) {
+                return this.el.querySelector("[" + this.bindingAttribute() + "=" + id + "]");
+            }
+            return null;
         }
     });
 
