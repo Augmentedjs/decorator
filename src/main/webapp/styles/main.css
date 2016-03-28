@@ -39,7 +39,6 @@ h4 {
   line-height: 1.25;
   /* Bigger text is often nicer with smaller line height */
   font-weight: 300;
-  /* Browser default. Use `normal` for less bulky titles */
 }
 
 h1 {
@@ -244,23 +243,14 @@ h2 {
 h3 {
   color: #388e3c;
   font-weight: 300;
-  margin: 0.3em 0 0;
+  margin: 0.3em 0 5px;
 }
 
-div#viewer {
-    color: #4caf50;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-div#controlPanel {
-    background-color: #eceff1;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+label {
+    font-size: 9pt;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+    margin: 0 10px 0 0;
 }
 
 button {
@@ -277,6 +267,29 @@ button:hover {
     background-color: #eceff1;
 }
 
+input, textarea {
+    font-family: 'Work Sans', "Arial Nue", "Arial", "Verdana", "Helvetica", sans-serif;
+    display: block;
+    margin: 0 10px 25px 0;
+    font-size: 9pt;
+    font-weight: 300;
+    border: 1px solid #cfd8dc;
+    background-color: #eceff1;
+    color: rgba(0, 0, 0, 0.85);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+div#controlPanel {
+    background-color: #eceff1;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid #cfd8dc;
+    color: rgba(0, 0, 0, 0.85);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
 section#main {
     display: block;
     padding: 10px;
@@ -284,21 +297,12 @@ section#main {
 }
 
 section#main input, section#main textarea {
-    font-family: 'Work Sans', "Arial Nue", "Arial", "Verdana", "Helvetica", sans-serif;
-    display: block;
-    margin: 0 10px 25px 0;
     width: 300px;
-    font-size: 9pt;
-    font-weight: 300;
-    border: 1px solid #cfd8dc;
-    background-color: #eceff1;
-    color: rgba(0, 0, 0, 0.85);
 }
 
 section#main label {
     display: block;
     width: 100px;
-    margin: 0 10px 0 0;
 }
 
 section#main textarea {
@@ -313,11 +317,16 @@ section#main textarea:focus, section#main input:focus {
 
 /* Note View */
 div#notes {
+    font-family: 'Coming Soon', cursive;
+    font-weight: 400;
     display: block;
     background-color: #cfd8dc;
     margin: 0;
     padding: 10px;
     min-height: 200px;
+    border: 1px solid #cfd8dc;
+    color: rgba(0, 0, 0, 0.85);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 div#notes div {
@@ -353,9 +362,8 @@ div#notes div.purple {
 
 div#notes div h1 {
     background-color: transparent;
-    color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 1);
     font-size: 8pt;
-    font-weight: 400;
     margin: 3px 3px 5px;
     max-height: 1.2em;
     max-width: 130px;
@@ -367,24 +375,26 @@ div#notes div h1 {
 
 div#notes div p {
     font-size: 8pt;
-    font-weight: 300;
     margin: 3px;
     padding: 0;
     background-color: transparent;
-    color: rgba(0, 0, 0, 0.85);
-    max-height: 110px;
+    color: rgba(0, 0, 0, 0.6);
+    height: 125px;
     overflow-y: scroll;
 }
 
 div#notes div button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: none;
-    box-shadow: none;
     background-color: transparent;
-    color: rgba(0, 0, 0, 0.6);
+    border: medium none;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.4);
     font-size: 12pt;
+    line-height: 12pt;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 div#notes div button:hover {
