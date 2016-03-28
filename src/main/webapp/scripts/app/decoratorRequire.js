@@ -75,7 +75,7 @@ require(['augmented', 'augmentedPresentation', 'handlebars'], function(Augmented
         },
         addNoteToDisplay: function() {
             var titleText = (this.model.get("title") ? this.model.get("title") : defaultTitle),
-                noteText = (this.model.get("note") ? this.model.get("note") : defaultNote);
+                noteText = (this.model.get("note") ? this.model.get("note") : defaultNote),
                 obj = {"title": titleText, "note": noteText, "color": this.model.get("color")};
             var template = this.noteTemplate(obj);
             this.injectTemplate(template, this.boundElement("notes"));
