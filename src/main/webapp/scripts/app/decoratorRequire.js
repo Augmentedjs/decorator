@@ -2,38 +2,30 @@ require.config({
 	'baseUrl': 'scripts/',
 
     'paths': {
-		'jquery': 'lib/jquery-2.1.4.min',
+		'jquery': 'lib/jquery.min',
 		'underscore': 'lib/lodash.min',
 		'backbone': 'lib/backbone-min',
-        'handlebars': 'lib/handlebars-v4.0.2',
+        'handlebars': 'lib/handlebars.runtime.min',
 
         // hosted version
 		//'augmented': '/augmented/scripts/core/augmented',
-        //'augmentedPresentation': '/augmented/scripts/presentation/augmentedPresentation'
+        //'augmentedPresentation': '/augmented/scripts/presentation/augmentedPresentation',
 
         // local version
 		'augmented': 'lib/augmented',
-        'augmentedPresentation': 'lib/augmentedPresentation'
+        'augmentedPresentation': 'lib/augmentedPresentation',
+
+        'note': 'app/note'
 	}
 });
 
-require(['augmented', 'augmentedPresentation', 'handlebars'], function(Augmented, Presentation, Handlebars) {
+require(['augmented', 'augmentedPresentation', 'handlebars', 'note'], function(Augmented, Presentation, Handlebars) {
     "use strict";
     var app = new Augmented.Presentation.Application("Stickies!");
     app.registerStylesheet("https://fonts.googleapis.com/css?family=Work+Sans:300,400");
     app.registerStylesheet("https://fonts.googleapis.com/css?family=Coming+Soon");
-    app.registerStylesheet("styles/main.css");
     app.start();
 
-    Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
-        if (arguments.length < 3)
-            throw new Error("Handlebars Helper equal needs 2 parameters");
-        if( lvalue!=rvalue ) {
-            return options.inverse(this);
-        } else {
-            return options.fn(this);
-        }
-    });
     // Sort-of persistance
     var Storage = Augmented.LocalStorageCollection.extend({
         key: "augmented.example.stickies",
@@ -47,9 +39,6 @@ require(['augmented', 'augmentedPresentation', 'handlebars'], function(Augmented
         name: "sticky",
         el: "#sticky",
         collection: lsc,
-        noteTemplate: Handlebars.compile(
-            "<div{{#if color}} style=\"background-color: {{color}}\"{{/if}}><h1>{{title}}</h1><p>{{note}}</p><button data-sticky=\"close\" data-click=\"closeNote\">✕</button></div>"
-        ),
         init: function() {
             var supportsColorPicker = function(){
                 var inp = document.createElement("input");
@@ -65,6 +54,8 @@ require(['augmented', 'augmentedPresentation', 'handlebars'], function(Augmented
             if (this.collection.length > 0) {
                 this.addNotesFromStorage();
             }
+
+            this.syncModelChange();
         },
         addNotesFromStorage: function() {
             var i = 0, l = this.collection.length;
@@ -77,19 +68,17 @@ require(['augmented', 'augmentedPresentation', 'handlebars'], function(Augmented
             var titleText = (this.model.get("title") ? this.model.get("title") : defaultTitle),
                 noteText = (this.model.get("note") ? this.model.get("note") : defaultNote),
                 obj = {"title": titleText, "note": noteText, "color": this.model.get("color")};
-            var template = this.noteTemplate(obj);
-            this.injectTemplate(template, this.boundElement("notes"));
+            this.injectTemplate(Handlebars.templates.note(obj), this.boundElement("notes"));
         },
         // bound functions from the html
         addNote: function() {
             var titleText = (this.model.get("title") ? this.model.get("title") : defaultTitle),
                 noteText = (this.model.get("note") ? this.model.get("note") : defaultNote),
                 obj = {"title": titleText, "note": noteText, "color": this.model.get("color")};
-            var template = this.noteTemplate(obj);
             this.collection.push(obj);
-            this.injectTemplate(template, this.boundElement("notes"));
+            this.injectTemplate(Handlebars.templates.note(obj), this.boundElement("notes"));
             this.collection.save();
-            this.model.set(obj);
+            this.model.set({"title": defaultTitle, "note": defaultNote, "color": defaultColor});
         },
         closeNote: function(event) {
             if (event && event.currentTarget && event.currentTarget.parentNode) {
